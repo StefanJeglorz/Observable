@@ -1,0 +1,16 @@
+﻿<p role="status">Current count (child): @Value</p>
+
+<button class="btn btn-primary" @onclick=IncrementCount>Click me</button>
+
+@code {
+    [Parameter] public int Value {get;set;}
+    [Parameter] public EventCallback<int> ValueChanged {get;set;}
+
+    private async Task IncrementCount()
+    {
+        Value++;
+        if(ValueChanged.HasDelegate){
+            await ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

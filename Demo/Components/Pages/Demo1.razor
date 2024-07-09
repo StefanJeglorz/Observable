@@ -1,0 +1,18 @@
+﻿@page "/demo1"
+@using Demo.Components.Reusable
+@rendermode InteractiveServer
+
+<PageTitle>Demo 1</PageTitle>
+
+<h1>Counter</h1>
+<p role="status">Current count (Parent): @count</p>
+<Counter @bind-Value=count></Counter>
+<Counter Value=count ValueChanged="OnCurrentCountChanged"></Counter>
+
+@code {
+    private int count = 0;
+
+    private void OnCurrentCountChanged(int value){
+        count = value;
+    }
+}

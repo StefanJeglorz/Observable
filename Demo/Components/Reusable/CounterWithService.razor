@@ -1,0 +1,32 @@
+﻿@rendermode InteractiveServer
+@inject CounterService CounterService
+@implements IDisposable
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    protected override void OnInitialized()
+    {
+        CounterService.OnCounterChanged += OnCounterChanged;
+    }
+
+    private void OnCounterChanged(object sender, int args)
+    {
+        currentCount = args;
+        StateHasChanged();
+    }
+
+    private void IncrementCount()
+    {
+        CounterService.Increase();
+    }
+
+    public void Dispose()
+    {
+        CounterService.OnCounterChanged -= OnCounterChanged;
+    }
+}
